@@ -181,6 +181,8 @@ if __name__ == '__main__':
             t0 = time.time()
             if args.upper_triangular_ld_matrix:
                 logging.info('--upper-triangular-ld-matrix is specified. Upper triangular matrix will be used')
+            if np.isnan(LD).any():
+                LD = np.nan_to_num(LD)
             eigenvals,V = scipy.linalg.eigh(LD, lower=(not args.upper_triangular_ld_matrix))
             logging.info('Eigen decomposition took %0.2f seconds'%(time.time() - t0))
             Dsq = args.n * eigenvals
